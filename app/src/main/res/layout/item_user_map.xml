@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
+    android:fontFamily="sans-serif-condensed"
     android:padding="10dp"
+    android:textAlignment="center"
     android:textSize="24sp"
     tools:text=" Singapore Itinerary">
 

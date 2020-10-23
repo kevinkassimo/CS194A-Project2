@@ -11,7 +11,9 @@ import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import edu.stanford.kassimo.mymaps.models.Place
@@ -49,10 +51,23 @@ class MainActivity : AppCompatActivity() {
         })
         rvMaps.adapter = mapAdapter
 
+        val swipeHandler = object : SwipeDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val positionToRemove = viewHolder.adapterPosition
+                userMaps.removeAt(positionToRemove)
+                mapAdapter.notifyItemRemoved(positionToRemove)
+                serializeUserMaps(this@MainActivity, userMaps)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(rvMaps)
+
         fabCreateMap.setOnClickListener {
             Log.i(TAG, "Tap on FAB")
             showAlertDialog()
         }
+
+        Toast.makeText(this, "Swipe left on map entry to delete", Toast.LENGTH_LONG).show()
     }
 
     private fun showAlertDialog() {

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.stanford.kassimo.mymaps.models.UserMap
 
 private const val TAG = "MapsAdapter"
-class MapsAdapter(val context: Context, val userMaps: List<UserMap>, val onClickListener: OnClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MapsAdapter(val context: Context, val userMaps: MutableList<UserMap>, val onClickListener: OnClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     interface OnClickListener {
         fun onItemClick(position: Int)
     }
